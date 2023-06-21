@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<head>
+    <title>index test</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+    <link rel="stylesheet" href="../../static/apuapuapp/css/search.css">
+    <link rel="stylesheet" href="../../static/apuapuapp/css/main.css">
+
+    <!-- <style>
+        form {
+            transition: all 0.5s;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+    </style> -->
+
+    <script type = 'text/javascript'>
+        function getsearch(keyword, search_option){
+            url = '/apu-apu/seach_list/?';
+            url = url + 'keyword=' + keyword.value + '&search_option=' + search_option;
+            search.action = url;
+        }
+    </script>
+    
+</head>
+<body>
+    <!-- partial:index.partial.html -->
+    <section id="intro" class="page">
+        <div id="intro-title">
+            <b>
+                <div>
+                    <br/>A P U&nbsp;&nbsp;&nbsp;&nbsp;A P U <br/>
+                </div>
+                <!-- 검색창 -->
+                <div class="container">
+                    <form autocomplete="off"method="get" id="search" name="search" action="#" top="50%">
+                        <div class="finder">
+                            <div class="finder__outer">
+                                <div class="finder__inner">
+                                    <div class="finder__icon" ref="icon"></div>
+                                    <input class="form-control" type="text" id="keyword" name="keyword"/>
+                                    <select class="form-select" id="search_option" name="search_option">
+                                        <option value="itemName" selected >약명</option>
+                                        <option value="entpName">제약회사</option>
+                                    </select>
+                                </div>
+                                <button class="btn btn-outline-secondary" type="submit" onclick="getsearch(keyword, search_option)"></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <!-- 검색 끝 -->
+            </b>
+        </div>
+        <div id="intro-description">
+            <br/> <br/>search pills
+        </div>
+    </section>
+    
+    <nav>  
+        <a class="menu-btn">
+            <svg t="1583388234559" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2279" width="16" height="16">
+                <path d="M128 213.34016l768 0q17.67424 0 30.16704 12.4928t12.4928 30.16704-12.4928 30.16704-30.16704 12.4928l-768 0q-17.67424 0-30.16704-12.4928t-12.4928-30.16704 12.4928-30.16704 30.16704-12.4928zM128 725.34016l768 0q17.67424 0 30.16704 12.4928t12.4928 30.16704-12.4928 30.16704-30.16704 12.4928l-768 0q-17.67424 0-30.16704-12.4928t-12.4928-30.16704 12.4928-30.16704 30.16704-12.4928zM128 469.34016l768 0q17.67424 0 30.16704 12.4928t12.4928 30.16704-12.4928 30.16704-30.16704 12.4928l-768 0q-17.67424 0-30.16704-12.4928t-12.4928-30.16704 12.4928-30.16704 30.16704-12.4928z" p-id="2280" fill="#40403F"></path>
+            </svg>
+        </a>
+        <a class="tab placeholder"></a>
+        <a class="tab" data-text=" my list " href="/apu-apu/my_list/"> my list </a>
+        <a class="tab" data-text=" add pill " href="/apu-apu/add_pill"> add pill </a>
+        <a class="tab" data-text=" notification " href="#three"> notification </a>
+        <a class="tab" data-text=" discard " href="#four"> discard </a>
+        <a class="tab" data-text="Login/Register" id="user-btn">Login/Register</a>
+    </nav>
+
+    <script  src="../../static/apuapuapp/js/main.js"></script>
+    <script  src="../../static/apuapuapp/js/search.js"></script>
+</body>
+</html>

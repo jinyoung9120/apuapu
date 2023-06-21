@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<head>
+    <title>seach_list</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+    <link rel="stylesheet" href="../../static/apuapuapp/css/search.css">
+    <link rel="stylesheet" href="../../static/apuapuapp/css/main.css">
+
+    <style>
+        form {
+            transition: all 0.5s;
+            position: absolute;
+            top: 25%;
+            transform: translateY(-50%);
+        }
+
+        a.index{
+            color: #40403F;
+            text-decoration:none;
+            }
+        .result{
+            border-color: #40403F;
+        }
+        .search_result{
+            padding: 5% 10%;
+        }
+    </style>
+
+    <script type = 'text/javascript'>
+        function getsearch(keyword,search_option){
+            url = '/apu-apu/seach_list/?';
+            url = url + 'keyword=' + keyword.value + '&search_option=' + search_option.value;
+            search.action = url
+        }
+
+        function godetail(itemSeq){
+            url = '/apu-apu/pill_detail/?itemSeq=' + itemSeq;
+            location.href = url;
+        }
+    </script>
+
+</head>
+
+<body>
+    <nav style="top:0px;">  
+    <!-- <nav>   -->
+        <a class="menu-btn">
+            <svg t="1583388234559" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2279" width="16" height="16">
+                <path d="M128 213.34016l768 0q17.67424 0 30.16704 12.4928t12.4928 30.16704-12.4928 30.16704-30.16704 12.4928l-768 0q-17.67424 0-30.16704-12.4928t-12.4928-30.16704 12.4928-30.16704 30.16704-12.4928zM128 725.34016l768 0q17.67424 0 30.16704 12.4928t12.4928 30.16704-12.4928 30.16704-30.16704 12.4928l-768 0q-17.67424 0-30.16704-12.4928t-12.4928-30.16704 12.4928-30.16704 30.16704-12.4928zM128 469.34016l768 0q17.67424 0 30.16704 12.4928t12.4928 30.16704-12.4928 30.16704-30.16704 12.4928l-768 0q-17.67424 0-30.16704-12.4928t-12.4928-30.16704 12.4928-30.16704 30.16704-12.4928z" p-id="2280" fill="#40403F"></path>
+            </svg>
+        </a>
+        <a class="tab placeholder"></a>
+        <a class="tab" data-text=" my list " href="/apu-apu/my_list/"> my list </a>
+        <a class="tab" data-text=" add pill " href="/apu-apu/add_pill"> add pill </a>
+        <a class="tab" data-text=" notification " href="#three"> notification </a>
+        <a class="tab" data-text=" discard " href="#four"> discard </a>
+        <a class="tab" data-text="Login/Register" id="user-btn">Login/Register</a>
+    </nav>
+    <section id="intro">
+        <div id="intro-title">
+            <b>
+                <div>
+                    <p><br/><a class="index" href="/apu-apu/"> A P U&nbsp;&nbsp;&nbsp;&nbsp;A P U </a></p>
+                </div>
+                <!-- 검색창 -->
+                <div class="container">
+                    <form autocomplete="off"method="get" id="search" name="search" action="#">
+                        <div class="finder">
+                            <div class="finder__outer">
+                                <div class="finder__inner">
+                                    <div class="finder__icon" ref="icon"></div>
+                                    <input class="form-control" type="text" id="keyword" name="keyword"/>
+                                    <select class="form-select" id="search_option" name="search_option">
+                                        <option value="itemName" selected >약명</option>
+                                        <option value="entpName">제약회사</option>
+                                    </select>
+                                </div>
+                                <button class="btn btn-outline-secondary" type="submit" onclick="getsearch(keyword, search_option)"></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <!-- 검색끝! -->
+            </b>
+        </div>
+    </section>
+
+    <!-- 검색결과 -->
+    <br/><br/><br/><br/><br/><br/><br/>
+    <div calss="search_result">
+        {{search_option}} '{{keyword}}'
+        {% if totalCount != 0 %}
+            에 대한 {{totalCount}} 건의 검색 결과가 있습니다.<br/>
+            <hr class="result">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">이미지</th>
+                        <th scope="col">약 이름</th>
+                        <th scope="col">제약 회사</th>
+                        <th scope="col">효능</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {%for i in result.items %}
+                    <tr>
+                        <th scope="row"><a href="javascript:godetail('{{i.itemSeq}}')"><img src= {{ i.itemImage }} alt="약 이미지가 아직 등록되지 않았습니다." width="40%"></a></th>
+                        <td><a href="javascript:godetail('{{i.itemSeq}}')">{{i.itemName}}</a></td>
+                        <td>{{i.entpName}}</td>
+                        <td>{{i.efcyQesitm}}</td>
+                    </tr>
+                    <br/><br/>
+                    {%endfor%}
+                </tbody>
+            </table>
+
+        {% else %}
+            에 대한 검색 결과가 없습니다.
+        {% endif %}
+    </div>
+
+    <br/><br/><br/>
+        페이징 처리 자리
+        (근데 이미 페이지도 api에서 서치해서 넘거야되나? 아니면 건수에 따라서 잘라야되낭)<br/>
+        {{now_page}}
+        <!-- 페이징처리 시작 -->
+        <!-- <ul class='pagination' style="justify-content:center; font-size:12px;">
+            {% if is_prev %}
+                <li class="page-item"> -->
+                    <!-- start_page | add:"-10"의 계산값 = start_page - 1 -->
+                    <!-- <a class="page-link" 
+                        href='/apu-apu/seach_list/?keyword={{keyword}}&search_option={{search_option}}&page={{ start_page | add:"-10" }}'>
+                            <span aria-hidden="true">«</span>
+                    </a>
+                </li>
+            {% endif %} -->
+
+            <!-- 페이지 번호 10개를 보여주기 -->
+            <!-- {% for i in page_range %}
+                <li class="page-item">
+                    <a class="page-link" href='/apu-apu/seach_list/?keyword={{keyword}}&search_option={{search_option}}&page={{ i }}'>{{ i }}</a>
+                </li>
+            {% endfor %} -->
+
+            <!-- {% if is_next %}
+                <li class="page-item"> -->
+                    <!-- start_page | add:"10"의 계산값 = start_page + 1 -->
+                    <!-- <a class="page-link" 
+                        href='/apu-apu/seach_list/?keyword={{keyword}}&search_option={{search_option}}&page={{ start_page | add:"10" }}'>
+                        <span aria-hidden="true">»</span>
+                    </a>
+                </li> 
+            {% endif %} -->
+            {{start_page}}
+        </ul>
+            <!-- 페이징처리 끝 -->
+<!-- End 페이징 처리 -->
+
+
+    <script  src="../../static/apuapuapp/js/main.js"></script>
+    <script  src="../../static/apuapuapp/js/search.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" 
+    integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" 
+    crossorigin="anonymous"></script>
+</body>
+</html>

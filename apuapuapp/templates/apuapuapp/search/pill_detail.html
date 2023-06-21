@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<head>
+    <title>pill_detail</title>
+    <link rel="stylesheet" href="../../static/apuapuapp/css/main.css">
+
+    <style>
+        a.index{
+            color: #40403F;
+            text-decoration:none;
+            }
+        .content{
+            padding: 5% 10%;
+        }
+    </style>
+
+    <script type = 'text/javascript'>
+        function goback(){
+            history.go(-1);}
+    </script>
+</head>
+<body>
+    <section id="intro">
+        <div id="intro-title">
+            <b>
+                <div>
+                    <p><br/><a class="index" href="/apu-apu/"> A P U&nbsp;&nbsp;&nbsp;&nbsp;A P U </a></p>
+                </div>
+            </b>
+        </div>
+    </section>
+    
+    <div class = content>
+        <p>p 태그들 지워야됨 replace가 먹으려나??</p>
+        제품명 : {{items.itemName}} <br/>
+        업체명 : {{items.entpName}}<br/>
+        낱알이미지 : <img src={{items.itemImage}} alt="이미지" width=" 40% "> <br/>
+        문항1(효능) : {{items.efcyQesitm}} <br/>
+        문항2(사용법) : {{items.useMethodQesitm}} <br/>
+        문항3(주의사항경고) : {{items.atpnWarnQesitm}} <br/>
+        문항4(주의사항) : {{items.atpnQesitm}} <br/>
+        문항5(상호작용) : {{items.intrcQesitm}} <br/>
+        문항6(부작용) : {{items.seQesitm}} <br/>
+        문항7(보관법) : {{items.depositMethodQesitm}} <br/>
+
+        <p class="text-end"><button class="btn btn-outline-secondary" type="button" onclick="goback()" >뒤로가기</button></p>
+    </div>
+</body>
+</html>
