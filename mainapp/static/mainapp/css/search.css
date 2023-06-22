@@ -45,14 +45,14 @@ html,
   height: calc(100% + 3rem);
 }
 
-/* .finder__input {
+.finder__input {
   height: calc(100% + 3rem);
   border: none;
   background-color: transparent;
   outline: none;
   font-size: 1.5rem;
   letter-spacing: 0.75px;
-} */
+}
 
 .form-control {
   height: calc(100% + 3rem);

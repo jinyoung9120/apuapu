@@ -38,47 +38,83 @@ def google_vision_orc(img_file):
     return texts
 
 ###########################################################################################################
-
-def index_(request):
-    return render(request,
-                "apuapuapp/index.html",
-                # "apuapuapp/index2.html",
-                {})
-
+###  약 등록  ###
 def add_pill(request):
-    return render(request,
+    itemSeq = request.GET.get("itemSeq","")
+    try:
+        itemSeq = request.GET.get("itemSeq","")
+    except:
+        itemSeq = ""
+        
+    if itemSeq == "":
+        return render(request,
                 "apuapuapp/add_pill/add_pill.html",
                 {})
-
-def my_list(request) :
+    else :
+        url = url_push(str(itemSeq), 'itemSeq')
+        result = response(url)
+        items = result['items'][0]
         return render(request,
-                    "apuapuapp/my_list.html",
-                        {})
+                    "apuapuapp/add_pill/add_pill.html",
+                    {"items":items})
 
-def seach_list2(request) :
+def pill_orc(request):
+    img_file = requests.GET(img_file)
+    texts = google_vision_orc(img_file)
+    return render(request,
+                "apuapuapp/add_pill/pill_orc.html",
+                {"texts": texts})
+
+def popup_search(request):
+    
     now_page = request.GET.get("page","1")
     try:
         now_page = request.GET.get("page","1")
     except:
         now_page = "1"
         
-    keyword = request.GET['keyword']
-    search_option =request.GET['search_option']
-    url = url_page(keyword, search_option, now_page)
+    pill_name = request.GET['pill_name']
+    url = url_page(pill_name, 'itemName', now_page)
     result = response(url)
     totalCount = result['totalCount']
-    if search_option == 'itemName':
-        search_option = '약명'
+    now_page = int(now_page)
+    start_page = int((now_page-1)/10)*10 + 1
+    if start_page + 9 < int((totalCount-1)/10)+1 :
+        end_page = start_page + 9
     else : 
-        search_option = '제약회사'
+        end_page = int((totalCount-1)/10)+1
+
+    is_prev = False
+    is_next = False
+    
+    if start_page > 1 :
+        is_prev = True
+    if end_page < int((totalCount-1)/10)+1 :
+        is_next = True
     
     return render(request,
-                "apuapuapp/search/seach_list2.html",
-                {"result" : result,
+                "apuapuapp/add_pill/popup_search.html",
+                {"is_prev" : is_prev,
+                "is_next" : is_next,
+                "start_page" : start_page,
+                "page_range" : range(start_page, end_page + 1),
+                "result" : result,
                 "totalCount" : totalCount,
-                "keyword": keyword,
-                "search_option" : search_option})
+                "pill_name": pill_name,})
 
+def popup_file(request):
+    return render (request,
+                "apuapuapp/add_pill/popup_file.html",
+                {})
+
+###  복용 리스트  ###
+def my_list(request) :
+        return render(request,
+                    "apuapuapp/my_list.html",
+                        {})
+
+
+###  검색  ###
 def seach_list(request) :
     now_page = request.GET.get("page","1")
     try:
@@ -96,7 +132,9 @@ def seach_list(request) :
     else : 
         search_option = '제약회사'
 
-    start_page = int((now_page-1)/10)*10+1
+    row = 10
+    now_page = int(now_page)
+    start_page = int((now_page-1)/row)*row+1
     end_page = start_page + 9
 
     is_prev = False
@@ -104,22 +142,19 @@ def seach_list(request) :
     
     if start_page > 1 :
         is_prev = True
-    if end_page < int((totalCount-1)/10)+1 :
+    if end_page < int((totalCount-1)/row)+1 :
         is_next = True
     
-    context = {
-        "is_prev" : is_prev,
-        "is_next" : is_next,
-        "start_page" : start_page,
-        "page_range" : range(start_page, end_page + 1),
-        "result" : result,
-        "totalCount" : totalCount,
-        "keyword": keyword,
-        "search_option" : search_option,
-    }
     return render(request,
                 "apuapuapp/search/seach_list.html",
-                {context})
+                {"is_prev" : is_prev,
+                "is_next" : is_next,
+                "start_page" : start_page,
+                "page_range" : range(start_page, end_page + 1),
+                "result" : result,
+                "totalCount" : totalCount,
+                "keyword": keyword,
+                "search_option" : search_option})
 
 def pill_detail(request) :
     itemSeq = request.GET['itemSeq']
@@ -130,11 +165,3 @@ def pill_detail(request) :
     return render(request,
                 "apuapuapp/search/pill_detail.html",
                 {'items':items})
-
-def pill_orc(request):
-    img_file = requests.GET(img_file)
-    texts = google_vision_orc(img_file)
-    return render(request,
-                "apuapuapp/add_pill/pill_orc.html",
-                {"texts": texts})
-    

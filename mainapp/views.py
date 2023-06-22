@@ -9,10 +9,11 @@ def index(request):
     page = int(request.GET.get('page', 1))
     pagenator = Paginator(rsBoard, 5)
     page_obj = pagenator.get_page(page)
-    context = {'rsBoard' : page_obj}
+    content = {"rsBoard" : page_obj}
+    
     return render(request,
-                    "mainapp/index2.html",
-                    {"rsBoard" : page_obj})
+                    "mainapp/index.html",
+                    content)
 
     
 def pill_register(request):

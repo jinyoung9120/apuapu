@@ -18,16 +18,20 @@ from django.urls import path, include
 from apuapuapp import views
 
 urlpatterns = [
-    # http://127.0.0.1:8000/apu-apu/
-    path('', views.index_),
     # http://127.0.0.1:8000/apu-apu/my_list/
     path('my_list/', views.my_list),
+    
     # http://127.0.0.1:8000/apu-apu/pill_detail/
     path('pill_detail/', views.pill_detail),
     # http://127.0.0.1:8000/apu-apu/seach_list/
-    path('seach_list/', views.seach_list2),
+    path('seach_list/', views.seach_list),
+    
     # http://127.0.0.1:8000/apu-apu/add_pill
     path('add_pill/', views.add_pill),
     # http://127.0.0.1:8000/apu-apu/pill_orc
     path('pill_orc/', views.pill_orc),
+    # http://127.0.0.1:8000/apu-apu/popup_search
+    path('popup_search/', views.popup_search),
+    # http://127.0.0.1:8000/apu-apu/popsup_file
+    path('popup_file/', views.popup_file),
 ]
