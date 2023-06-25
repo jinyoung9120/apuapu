@@ -32,6 +32,4 @@ urlpatterns = [
     path('pill_orc/', views.pill_orc),
     # http://127.0.0.1:8000/apu-apu/popup_search
     path('popup_search/', views.popup_search),
-    # http://127.0.0.1:8000/apu-apu/popsup_file
-    path('popup_file/', views.popup_file),
 ]

@@ -14,19 +14,19 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
-from mainapp import views as mView
-from django.shortcuts import redirect
+from django.urls import path
+from . import views
+
+app_name = 'www_disposal'
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('apu-apu/', include('apuapuapp.urls')),
+    ### http://127.0.0.1:8000/disposal/disposal_list/
+    path('disposal_list/', views.get_dictList, name = 'disposal_list'),
     
-    path('', mView.index),
-    path('main/', include('mainapp.urls')),
-    path('', lambda  r: redirect('www_board:index')),
-    path('board/', include('boardapp.urls')),
-    path('disposal/', include('disposalapp.urls')),
+    ### http://127.0.0.1:8000/disposal/disposal_list_main/
+    path('disposal_list_main/', views.get_dictList_main, name = 'disposal_list_main'),
     
-    path('login/', include('loginapp.urls')),
+    ### http://127.0.0.1:8000/disposal/map_popup/
+    path('map_popup/', views.get_map, name = 'map_popup'),
+    
 ]

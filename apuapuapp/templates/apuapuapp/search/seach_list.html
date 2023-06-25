@@ -51,10 +51,11 @@
             </svg>
         </a>
         <a class="tab placeholder"></a>
+        <a class="tab" data-text="홈" href="{% url 'main:index' %}">홈</a>
         <a class="tab" data-text="약 등록" href="/apu-apu/add_pill/">약 등록</a>
         <a class="tab" data-text="내 약 조회" href="/apu-apu/my_list">내 약 조회</a>
         <a class="tab" data-text="공지사항" href="{% url 'www_board:board_list' %}">공지사항</a>
-        <a class="tab" data-text="폐의약품 처리" href="#four">폐의약품 처리</a>
+        <a class="tab" data-text="폐의약품 처리" href="/disposal/disposal_list/?city=&page=1">폐의약품 처리</a>
         <a class="tab" data-text="LOGIN / SIGN UP" id="user-btn">LOGIN / SIGN UP</a>
     </nav>
 

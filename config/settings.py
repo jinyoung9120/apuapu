@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'loginapp',
     'mainapp',
     'boardapp',
+    'disposalapp',
 ]
 
 MIDDLEWARE = [

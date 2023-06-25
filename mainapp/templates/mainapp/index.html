@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <head>
     <title>::: 아푸아푸 :::</title>
+    <link rel="stylesheet" href="/static/mainapp/css/search.css">
     <link rel="stylesheet" href="/static/mainapp/css/main.css">
 
     <style>
@@ -15,6 +16,7 @@
             border-bottom: 1px solid #ddd;
         }
         #three{padding: 10%;}
+        #four{padding: 10%;}
     </style>
 
     <script type = 'text/javascript'>
@@ -22,6 +24,14 @@
             url = '/apu-apu/seach_list/?';
             url = url + 'keyword=' + keyword.value + '&search_option=' + search_option;
             search.action = url;
+        }
+
+        function showPopup(pharmacy_addr, pharmacy_name ) {
+            var windowOptions = "width=400, height=400, left=500, top=250";
+            var url = "disposal/map_popup?pharmacy_addr=" + encodeURIComponent(pharmacy_addr) + "&pharmacy_name=" + encodeURIComponent(pharmacy_name);
+            url = url.replace("main/index/", "");
+            url = 'http://127.0.0.1:8000/' + url
+            var popupWindow = window.open(url, "map_popup", windowOptions);
         }
     </script>
     
@@ -66,7 +76,7 @@
         <a class="tab" data-text="약 등록" href="/apu-apu/add_pill/">약 등록</a>
         <a class="tab" data-text="내 약 조회" href="/apu-apu/my_list">내 약 조회</a>
         <a class="tab" data-text="공지사항" href="{% url 'www_board:board_list' %}">공지사항</a>
-        <a class="tab" data-text="폐의약품 처리" href="#four">폐의약품 처리</a>
+        <a class="tab" data-text="폐의약품 처리" href="/disposal/disposal_list/">폐의약품 처리</a>
         <a class="tab" data-text="LOGIN / SIGN UP" id="user-btn">LOGIN / SIGN UP</a>
     </nav>
 
@@ -83,11 +93,12 @@
             PAGE TWO
         </div>
     </section>
-
-    <a name="three"></a>
+    <hr/>
+    <a name="three"> 공지사항 </a>
     <section name="three" class="page content-page" id="three">
         <!-- 게시판 리스트  -->
         <div class="container my-3">
+
             <table class="table">
                 <thead>
                     <tr class="thead-dark">
@@ -100,7 +111,8 @@
                     <tr>
                         <!-- 번호 = 전체건수 - 시작인덱스 - 현재인덱스 + 1 -->
                         <<td>{{ rs.b_no }}</td>
-                        <td><a href="{% url 'www_board:detail' rs.b_no %}">{{ rs.b_title }}</a></td>
+                        <td><a href="{% url 'www_board:detail' rs.b_no %}"
+                            style="text-decoration-line: none; color : black;">{{ rs.b_title }}</a></td>
                         <td>{{ rs.b_date }}</td>
                         <td>{{ rs.b_writer }}</td>>
                     </tr>
@@ -113,19 +125,43 @@
             <br/>
             <a href="{% url 'www_board:board_list' %}"> 더보기 </a>
         </div>
-        <!-- <div>
-            PAGE THREE
-        </div> -->
     </section>
 
-    <a name="four"></a>
-    <section name="four" class="page content-page">
+    <br/><br/>
+    <hr/>
+    <a name="four">폐의약품 처리</a>
+    <section name="four" id="four" class="page content-page">
+        <!-- 폐의약품 수거 약국 리스트 -->
+        <div class="container my-3">
+            <table class="table">
+                <tr class="thead-dark">
+                    <th>연번</th>
+                    <th>시군구</th>
+                    <th>약국명</th>
+                    <th>전화번호</th>
+                    <th>소재지</th>
+                </tr>
+                
+                {% for info in res.values %}
+                    {% if forloop.counter <= 10 %}
+                        <tr>
+                            <td>{{ info.연번 }}</td>
+                            <td>{{ info.시군구 }}</td>
+                            <td><a href="#" 
+                                onclick="showPopup('{{ info.소재지 }}', '{{ info.약국명 }}'); return false;" 
+                                style="text-decoration-line: none; color : black;">
+                                {{ info.약국명 }}</a></td>
+                            <td>{{ info.전화번호 }}</td>
+                            <td>{{ info.소재지 }}</td>
+                        </tr>
+                    {% endif %}        
+                {% endfor %}
+            </table>
+            <br/>
+            <a href="/disposal/disposal_list/"> 더보기 </a>
         <div>
-            PAGE FOUR
-        </div>
     </section>
     <script  src="/static/mainapp/js/main.js"></script>
-    <script  src="/static/mainapp/js/search.js"></script>
-    <link rel="stylesheet" href="/static/mainapp/css/search.css">
+    <!-- <script  src="/static/mainapp/js/search.js"></script> -->
 </body>
 </html>

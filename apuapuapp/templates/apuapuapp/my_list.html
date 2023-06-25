@@ -1,6 +1,8 @@
+{% load static %}
+
 <!DOCTYPE html>
 <head>
-    <title>My list</title>
+    <title>::: 내 약 조회 :::</title>
     <link rel="stylesheet" href="../../static/apuapuapp/css/main.css">
 
     <style>
@@ -8,6 +10,9 @@
             color: #40403F;
             text-decoration:none;
             }
+        .content{
+            padding : 5% 10%;
+        }
     </style>
 </head>
 <body>
@@ -15,16 +20,15 @@
         <div id="intro-title">
             <b>
                 <div>
-                    <p><br/><a class="index" href="/apu-apu/"> A P U&nbsp;&nbsp;&nbsp;&nbsp;A P U </a></p>
+                    <p><br/><a class="index" href="/"> 아 푸 아 푸</a></p>
                 </div>
             </b>
         </div>
+        <h3> 내 약 목록</h3>
     </section>
-
-    <header>
-        <h3> My list</h3>
-    </header>
-    <main>
+    {% include 'mainapp/include/nav.html' %}
+    <hr/>
+    <div class = content>
         이름 :
         <br/>
         
@@ -41,8 +45,8 @@
 
         이것도 양쪽?? 아님 한쪽???
         <br/>
-    </main>
+    </div>
 
-    <footer> kepco digeter boot camp finalproject ㅈㅈㅈ - apu_apu </footer>
+    <!-- <footer> kepco digeter boot camp finalproject ㅈㅈㅈ - apu_apu </footer> -->
 </body>
 </html>

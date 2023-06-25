@@ -35,6 +35,7 @@ def google_vision_orc(img_file):
     image = vision.Image(content=content)
     response = client.text_detection(image=image)
     texts = response.text_annotations
+    texts = texts[0].description.split()
     return texts
 
 ###########################################################################################################
@@ -59,14 +60,16 @@ def add_pill(request):
                     {"items":items})
 
 def pill_orc(request):
-    img_file = requests.GET(img_file)
-    texts = google_vision_orc(img_file)
+    img_file = request.GET[img_file]
+    img_file = img_file.split('\\')
+    file_name = img_file[img_file.length-1]
+    texts = google_vision_orc("C:/www/apuapuapp/static/apuapuapp/img/"+ file_name)
     return render(request,
                 "apuapuapp/add_pill/pill_orc.html",
+                # {})
                 {"texts": texts})
 
 def popup_search(request):
-    
     now_page = request.GET.get("page","1")
     try:
         now_page = request.GET.get("page","1")
@@ -102,11 +105,6 @@ def popup_search(request):
                 "totalCount" : totalCount,
                 "pill_name": pill_name,})
 
-def popup_file(request):
-    return render (request,
-                "apuapuapp/add_pill/popup_file.html",
-                {})
-
 ###  복용 리스트  ###
 def my_list(request) :
         return render(request,
@@ -131,11 +129,14 @@ def seach_list(request) :
         search_option = '약명'
     else : 
         search_option = '제약회사'
-
-    row = 10
+    # 한페이지에 보일 행의 갯수
+    row = 10 
     now_page = int(now_page)
     start_page = int((now_page-1)/row)*row+1
-    end_page = start_page + 9
+    if start_page + 9 < int((totalCount-1)/10)+1 :
+        end_page = start_page + 9
+    else : 
+        end_page = int((totalCount-1)/10)+1
 
     is_prev = False
     is_next = False
