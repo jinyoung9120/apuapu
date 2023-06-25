@@ -37,6 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'apuapuapp',
+    'loginapp',
+    'mainapp',
+    'boardapp',
+    'disposalapp',
 ]
 
 MIDDLEWARE = [
@@ -76,8 +80,13 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'apuapu',
+        'USER':'root',
+        'PASSWORD':'dbdb',
+        'HOST':'localhost',
+        'PORT':'3306',
+        
     }
 }
 
