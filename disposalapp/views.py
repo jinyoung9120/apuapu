@@ -79,7 +79,8 @@ def get_dictList(request):
                 "res_datas": res_datas,
                 "city_list" : city,
                 "total_count" : total_count,
-                "res_range": range(res_start, res_end),}
+                "res_range": range(res_start, res_end),
+                "now_page" : now_page}
         
     return render(
         request, "disposalapp/disposal_list.html", context

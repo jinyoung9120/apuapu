@@ -26,7 +26,8 @@ def response(url):
 
 # google ORC
 def google_vision_orc(img_file):
-    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "C:/Users/admin/Desktop/개인/long-plexus-390002-c69c4740468f.json"
+    # 각자의 환경에 맞혀서 경로 확인해주세요
+    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "C:/www/long-plexus-390002-c69c4740468f.json"
     client = vision.ImageAnnotatorClient()
     file_name = os.path.abspath(img_file)
     # Loads the image into memory
@@ -60,10 +61,14 @@ def add_pill(request):
                     {"items":items})
 
 def pill_orc(request):
-    img_file = request.GET[img_file]
-    img_file = img_file.split('\\')
-    file_name = img_file[img_file.length-1]
+    file_name = request.GET[file_name]
+    # img_file = request.GET[img_file]
+    # img_file = img_file.split('\\')
+    # file_name = img_file[img_file.length-1]
+    # file_name = file_name.split('.')
+    # file = file_name[0]
     texts = google_vision_orc("C:/www/apuapuapp/static/apuapuapp/img/"+ file_name)
+    # texts = google_vision_orc("C:/www/apuapuapp/static/apuapuapp/img/"+ file +'.jpg')
     return render(request,
                 "apuapuapp/add_pill/pill_orc.html",
                 # {})
@@ -155,7 +160,8 @@ def seach_list(request) :
                 "result" : result,
                 "totalCount" : totalCount,
                 "keyword": keyword,
-                "search_option" : search_option})
+                "search_option" : search_option,
+                "now_page" : now_page})
 
 def pill_detail(request) :
     itemSeq = request.GET['itemSeq']
