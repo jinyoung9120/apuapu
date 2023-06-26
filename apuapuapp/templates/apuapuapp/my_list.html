@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <head>
     <title>::: 내 약 조회 :::</title>
-    <link rel="stylesheet" href="../../static/apuapuapp/css/main.css">
+    <link rel="stylesheet" href="/static/apuapuapp/css/main.css">
 
     <style>
         a.index{
@@ -16,6 +16,7 @@
     </style>
 </head>
 <body>
+    {% include 'mainapp/include/nav.html' %}
     <section id="intro">
         <div id="intro-title">
             <b>
@@ -26,7 +27,6 @@
         </div>
         <h3> 내 약 목록</h3>
     </section>
-    {% include 'mainapp/include/nav.html' %}
     <hr/>
     <div class = content>
         이름 :
@@ -42,8 +42,6 @@
         if 복용했던 약 테이블 땡겨올게 없다면 :
         복용이력이 없습니다. 
         보여주기
-
-        이것도 양쪽?? 아님 한쪽???
         <br/>
     </div>
 

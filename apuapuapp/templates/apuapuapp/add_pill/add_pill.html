@@ -26,7 +26,9 @@
                 alert("사진을 선택해주세요")
             }
             else {
-                url = "/apu-apu/pill_orc/?img_file=" + img_file
+                img_file = img_file.split('\\')
+                file_name = img_file[img_file.length-1]
+                url = "/apu-apu/pill_orc/?file_name=" + file_name
                 window.open(url, "popup_file", "width=700, height=550, left=100, top=50");
             }
         }
@@ -53,6 +55,9 @@
                 alert("사용기한을 입력해주세요");
             }
             else {
+                alert(pill_name);
+                alert(start_date);
+                alert(end_date);
                 alert("등록되었습니다.");
                 location.href="/apu-apu/my_list/";
             }
@@ -63,6 +68,7 @@
     </script>
 </head>
 <body>
+    {% include 'mainapp/include/nav.html' %}
     <section id="intro">
         <div id="intro-title">
             <b>
@@ -73,19 +79,18 @@
         </div>
         <h4>약 등록하기</h4>
     </section>
-    {% include 'mainapp/include/nav.html' %}
     
     <div class = content>
         <form>
             {% if items %}
             <!-- 검색 했을때  -->
-                <label for="input">이미지 검색</label><br/>
-                <img src={{items.itemImage}} alt="이미지" width="50% "><br/><br/>
+                <div class="container text-center">
+                    <img src={{items.itemImage}} alt="이미지" width="50% "><br/><br/>
+                </div>
 
-                <label for="input">이름으로 검색</label>
-                <input class="form-control" type="text" name="pill_name" id="pill_name"
-                value="{{items.itemName}}" aria-label="readonly input example" readonly>
-            
+                    <label for="input">이름으로 검색</label>
+                    <input class="form-control" type="text" name="pill_name" id="pill_name"
+                    value="{{items.itemName}}" aria-label="readonly input example" readonly>
 
             {% else %}
             <!-- 검색 안했을때 -->

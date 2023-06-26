@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../../static/apuapuapp/css/main.css">
 
     <style>
-        a.index{
+        a{
             color: #40403F;
             text-decoration:none;
             }
@@ -21,10 +21,6 @@
         }
         li{
             list-style-type: none;
-        }
-        .page_link{
-            color: #40403F;
-            text-decoration:none;
         }
     </style>
 
@@ -134,10 +130,23 @@
             {% endif %}
 
             <!-- 페이지 번호 10개를 보여주기 -->
-            {% for i in page_range %}
+            <!-- {% for i in page_range %}
                 <th class="page-item">
                     <a class="page_link" href='/apu-apu/seach_list/?keyword={{keyword}}&search_option={{search_option}}&page={{ i }}'>{{ i }}</a>
                 </th>
+            {% endfor %} -->
+
+            {% for i in page_range %}
+                {% if i == now_page %}
+                    <th class="page-item_active">
+                        <a class="page-link" style="color: rgb(229, 24, 144);"
+                        href='/apu-apu/seach_list/?keyword={{keyword}}&search_option={{search_option}}&page={{ i }}'>{{ i }}<a>
+                    </th>
+                {% else %}
+                    <th class="page-item" >
+                        <a class="page-link" href='/apu-apu/seach_list/?keyword={{keyword}}&search_option={{search_option}}&page={{ i }}'>{{ i }}</a>
+                    </th>
+                {% endif %}
             {% endfor %}
 
             {% if is_next %}
