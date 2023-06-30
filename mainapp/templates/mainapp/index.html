@@ -33,6 +33,48 @@
             url = 'http://127.0.0.1:8000/' + url
             var popupWindow = window.open(url, "map_popup", windowOptions);
         }
+        function search_file(img_file){
+            if (img_file == ""){
+                alert("사진을 선택해주세요")
+            }
+            else {
+                img_file = img_file.split('\\')
+                file_name = img_file[img_file.length-1]
+                url = "/apu-apu/pill_orc/?file_name=" + file_name
+                window.open(url, "popup_file", "width=700, height=550, left=100, top=50");
+            }
+        }
+
+        function popup_search(pill_name, page){
+            if (pill_name == "") {
+                alert("검색어를 입력해주세요")
+            }
+            else{
+                url = "/apu-apu/popup_search/?"
+                url = url + 'pill_name=' + pill_name + '&page=' + page;
+                window.open(url, "popup_search", "width=700, height=550, left=100, top=50");
+            }
+        }
+
+        function add_pill_list(pill_name, start_date, end_date){
+        //function add_pill_list(pill_name, start_date, end_date, username){
+            if (pill_name == ""){
+                alert("약 이름을 검색해주세요")
+            }
+            else if (start_date ==""){
+                alert("개봉날짜를 입력해주세요");
+            }
+            else if (end_date == ""){
+                alert("사용기한을 입력해주세요");
+            }
+            else {
+                alert(pill_name);
+                alert(start_date);
+                alert(end_date);
+                alert("등록되었습니다.");
+                location.href="/apu-apu/my_list/";
+            }
+        }
     </script>
     
 </head>
@@ -79,22 +121,24 @@
         <a class="tab" data-text="폐의약품 처리" href="/disposal/disposal_list/">폐의약품 처리</a>
         <a class="tab" data-text="LOGIN / SIGN UP" id="user-btn">LOGIN / SIGN UP</a>
     </nav>
-
-    <a name="one"></a>
+    <br/>
+    <h1 name="one">약등록하기</h1>
     <section class="page content-page">  
         <div>
-            <a href = 'main/register'>PAGE ONE</a>
+            PAGE ONE
         </div>
     </section>
-
-    <a name="two"></a>
+    <hr/>
+    <br/>
+    <h1 name="two">내 복용 리스트</h1>
     <section name="two" class="page content-page">
         <div>
             PAGE TWO
         </div>
     </section>
     <hr/>
-    <a name="three"> 공지사항 </a>
+    <br/>
+    <h1 name="three"> 공지사항 </h1>
     <section name="three" class="page content-page" id="three">
         <!-- 게시판 리스트  -->
         <div class="container my-3">
@@ -128,7 +172,8 @@
 
     <br/><br/>
     <hr/>
-    <a name="four">폐의약품 처리</a>
+    <br/>
+    <h1 name="four">폐의약품 처리</h1>
     <section name="four" id="four" class="page content-page">
         <!-- 폐의약품 수거 약국 리스트 -->
         <div class="container my-3">

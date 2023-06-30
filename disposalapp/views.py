@@ -50,7 +50,6 @@ def get_dictList(request):
     is_prev = False
     is_next = False
     
-    
     # if start_page > 0 :
     if start_page > 1 :
         is_prev = True

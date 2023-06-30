@@ -194,11 +194,11 @@
                     {% for page_number in page_range %}
                         {% if page_number == now_page %}
                             <li class="page-item active" aria-current="page">
-                                <a class="page-link" href="?page={{ page_number }}" >{{ page_number }}</a>
+                                <a class="page-link" href="/disposal/disposal_list/?city={{ city_list }}&page={{ page_number }}" >{{ page_number }}</a>
                             </li>
                         {% else %}
                             <li class="page-item" >
-                                <a class="page-link" href="?page={{ page_number }}" >{{ page_number }}</a>
+                                <a class="page-link" href="/disposal/disposal_list/?city={{ city_list }}&page={{ page_number }}" >{{ page_number }}</a>
                             </li>
                         {% endif %}
                     {% endfor %}
