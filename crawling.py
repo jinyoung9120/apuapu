@@ -29,8 +29,8 @@ django.setup()
 from boardapp.models import Board
 
 
-id = 'jsh2341'
-pw = 'Ahdkdl1014'
+id = 
+pw = 
 
 
 regNo_list = []
